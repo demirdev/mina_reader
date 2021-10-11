@@ -10,6 +10,6 @@ class LugatPosition {
 
   @override
   String toString() {
-    return "{\"startIndex\": ${startIndex},\"endIndex\": ${endIndex},\"originalText\": ${originalText},\"meaning\": \"${meaning}\"}";
+    return "{\"startIndex\": $startIndex,\"endIndex\": $endIndex,\"originalText\": $originalText,\"meaning\": \"$meaning\"}";
   }
 }
