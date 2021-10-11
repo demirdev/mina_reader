@@ -22,7 +22,7 @@ class NextSectionWidget extends StatelessWidget {
           color: kBookCardBackgroundColor,
         ),
         child: TextButton(
-            onPressed: () {
+            onPressed: () async {
               Get.back();
               onTapNextSection();
             },
