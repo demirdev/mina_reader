@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:mina_reader/book_library/components/scroll_speed_widget.dart';
 import 'package:mina_reader/book_library/model/menu_button.dart';
 import 'package:mina_reader/book_library/screens/reader/reading_settings_texts.dart';
-import 'package:mina_reader/book_library/text_selection_controls.txt.dart';
+import 'package:mina_reader/book_library/text_selection_controls.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mina_reader/book_library/theme/text_theme.dart';
 
