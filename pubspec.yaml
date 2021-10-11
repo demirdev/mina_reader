@@ -1,8 +1,8 @@
 name: mina_reader
-description: A new Flutter package project.
+description: Text Reading and Highlighting flutter package.
 version: 0.0.1
 author:
-homepage:
+homepage: https://github.com/demirdev/mina_reader
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
