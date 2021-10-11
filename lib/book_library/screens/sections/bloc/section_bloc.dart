@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:mina_reader/book_library/model/book.dart';
 import 'package:mina_reader/book_library/screens/sections/helper/name_parsing_helper.dart';

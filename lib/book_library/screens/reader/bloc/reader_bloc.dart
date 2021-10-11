@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mina_reader/book_library/components/scroll_speed_widget.dart';
 import 'package:mina_reader/book_library/model/highlight.dart';
 
