@@ -16,21 +16,13 @@ Mina Reader is a flutter package for Text Reading and Highlighting.
 
 [Get on pub.dev](https://pub.dev/packages/mina_reader)
 
-![Alt text](/screenshoots/1.png?raw=true )
+<img src="https://raw.githubusercontent.com/yazilimsalcozumler/mina_reader/main/docs/assets/demo.gif" alt="Example Project" />
 
-![Alt text](/screenshoots/2.png?raw=true )
-
-![Alt text](/screenshoots/3.png?raw=true )
-
-![Alt text](/screenshoots/4.png?raw=true )
-
-![Alt text](/screenshoots/5.png?raw=true )
 
 ## How to use
 
 ```dart
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
