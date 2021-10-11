@@ -23,10 +23,7 @@ class Book {
         final bookNameParts = sections[index].fileName.split("-");
 
         final sectionNumber = bookNameParts.firstWhere((element) {
-          return int.parse(element, onError: (element) {
-                return -1;
-              }) >
-              0;
+          return (int.tryParse(element) ?? -1) > 0;
         });
 
         return assetFolder + "_" + sectionNumber;
