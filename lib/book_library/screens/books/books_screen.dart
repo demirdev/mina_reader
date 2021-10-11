@@ -5,10 +5,8 @@ import 'package:get/get.dart';
 import 'package:mina_reader/book_library/model/book.dart';
 import 'package:mina_reader/book_library/model/menu_button.dart';
 import 'package:mina_reader/book_library/screens/books/bloc/book_bloc.dart';
-import 'package:mina_reader/book_library/screens/reader/ReaderScreenSettings.dart';
 import 'package:mina_reader/book_library/screens/reader/bloc/reader_bloc.dart';
-import 'package:mina_reader/book_library/screens/reader/reading_settings_texts.dart';
-import 'package:mina_reader/book_library/text_selection_controls.txt.dart';
+import 'package:mina_reader/book_library/text_selection_controls.dart';
 import 'package:mina_reader/book_library/theme/text_theme.dart';
 
 import 'widgets/books_widget.dart';
@@ -27,9 +25,10 @@ class BooksScreen extends StatelessWidget {
   }) {
     ReaderBloc.booksAssetsFolder = booksAssetsFolder;
 
-    MyMaterialTextSelectionControls.defaultColorButtons =
-        highlightMenuColorButtons ??
-            MyMaterialTextSelectionControls.defaultColorButtons;
+    if (highlightMenuColorButtons != null) {
+      MyMaterialTextSelectionControls.defaultColorButtons =
+          highlightMenuColorButtons!;
+    }
   }
 
   @override

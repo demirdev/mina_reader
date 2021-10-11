@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mina_reader/book_library/model/menu_button.dart';
 import 'package:mina_reader/mina_reader.dart';
 
 void main() {
@@ -9,23 +8,13 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       home: Scaffold(
         body: BooksScreen(
-          highlightMenuColorButtons: [
-            HighlightMenuButton(
-              label: 'Purple',
-              colorIntValue: Colors.deepPurpleAccent.value,
-            ),
-            HighlightMenuButton(
-              label: 'Orange',
-              colorIntValue: Colors.deepOrangeAccent.value,
-            )
-          ],
           title: 'Books',
           booksAssetsFolder: "assets/books/",
           books: [
