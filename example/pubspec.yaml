@@ -24,7 +24,6 @@ dependencies:
   flutter:
     sdk: flutter
   mina_reader:
-#    git: https://github.com/yazilimsalcozumler/mina_reader.git
     path: ./../
   get:
 
