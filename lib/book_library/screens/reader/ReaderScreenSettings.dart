@@ -42,41 +42,44 @@ class _ReaderScreenSettingsState extends State<ReaderScreenSettings> {
           style: TextStyle(color: kBookTitleColor),
         )),
       ),
-      body: Container(
-        padding: EdgeInsets.all(0.02.sw),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ...labels(),
-            ScrollSpeedWidget(onChanged: (newValue) {
-              setState(() {});
-            }),
-            Card(
-              child: ListTile(
-                leading: Icon(Icons.refresh),
-                title: Text(
-                    ReaderScreenSettings.texts.resetLabelNamesToColorNames),
-                onTap: () async {
-                  for (int i = 0; i < buttons.length; i++) {
-                    final butt =
-                        MyMaterialTextSelectionControls.defaultColorButtons[i];
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(0.02.sw),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ...labels(),
+              ScrollSpeedWidget(onChanged: (newValue) {
+                setState(() {});
+              }),
+              Card(
+                child: ListTile(
+                  leading: Icon(Icons.refresh),
+                  title: Text(
+                      ReaderScreenSettings.texts.resetLabelNamesToColorNames),
+                  onTap: () async {
+                    for (int i = 0; i < buttons.length; i++) {
+                      final butt = MyMaterialTextSelectionControls
+                          .defaultColorButtons[i];
 
-                    buttons[i].label = butt.label;
-                  }
-                  //
-                  buttons = MyMaterialTextSelectionControls.defaultColorButtons;
+                      buttons[i].label = butt.label;
+                    }
+                    //
+                    buttons =
+                        MyMaterialTextSelectionControls.defaultColorButtons;
 
-                  // await MyMaterialTextSelectionControls
-                  //     .saveHighlightColorButtons(buttons);
+                    // await MyMaterialTextSelectionControls
+                    //     .saveHighlightColorButtons(buttons);
 
-                  await MyMaterialTextSelectionControls
-                      .deleteHighlightColorButtons();
+                    await MyMaterialTextSelectionControls
+                        .deleteHighlightColorButtons();
 
-                  setState(() {});
-                },
-              ),
-            )
-          ],
+                    setState(() {});
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -91,47 +94,46 @@ class _ReaderScreenSettingsState extends State<ReaderScreenSettings> {
           style: TextStyle(fontWeight: FontWeight.w600),
         ),
       ),
-      ListView.builder(
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          final title = buttons[index].label;
-          return Container(
-            color: buttons[index].color,
-            child: ListTile(
-              title: Text(title),
-              onTap: () async {
-                HighlightMenuButton button = buttons[index];
-                final TextEditingController _controller =
-                    TextEditingController();
-                _controller.text = button.label;
-                Get.defaultDialog(
-                    title: ReaderScreenSettings.texts.changeColorLabel,
-                    content: Column(
-                      children: [
-                        TextFormField(
-                          controller: _controller,
-                          autofocus: true,
-                        ),
-                      ],
-                    ),
-                    onConfirm: () {
-                      button.label = _controller.text;
-                      MyMaterialTextSelectionControls.saveHighlightColorButtons(
-                          buttons);
-                      Get.back();
-
-                      setState(() {});
-                    },
-                    textConfirm: ReaderScreenSettings.texts.ok,
-                    confirmTextColor: Colors.white,
-                    textCancel: ReaderScreenSettings.texts.cancel);
-              },
-              trailing: Icon(Icons.edit),
-            ),
-          );
-        },
-        itemCount: buttons.length,
+      Column(
+        children: buildColorTiles(),
       ),
     ];
+  }
+
+  List<Widget> buildColorTiles() {
+    return buttons.map((HighlightMenuButton button) {
+      return Container(
+        color: button.color,
+        child: ListTile(
+          title: Text(button.label),
+          onTap: () async {
+            final TextEditingController _controller = TextEditingController();
+            _controller.text = button.label;
+            Get.defaultDialog(
+                title: ReaderScreenSettings.texts.changeColorLabel,
+                content: Column(
+                  children: [
+                    TextFormField(
+                      controller: _controller,
+                      autofocus: true,
+                    ),
+                  ],
+                ),
+                onConfirm: () {
+                  button.label = _controller.text;
+                  MyMaterialTextSelectionControls.saveHighlightColorButtons(
+                      buttons);
+                  Get.back();
+
+                  setState(() {});
+                },
+                textConfirm: ReaderScreenSettings.texts.ok,
+                confirmTextColor: Colors.white,
+                textCancel: ReaderScreenSettings.texts.cancel);
+          },
+          trailing: Icon(Icons.edit),
+        ),
+      );
+    }).toList();
   }
 }
