@@ -38,7 +38,7 @@ class ReaderBloc extends Bloc<ReaderEvent, ReaderState> {
       required this.scrollController,
       required this.bookFolder})
       : super(ReaderInitial()) {
-    initState();
+    loadSectionText();
   }
 
   // dictionary
@@ -131,7 +131,7 @@ class ReaderBloc extends Bloc<ReaderEvent, ReaderState> {
         duration: Duration(milliseconds: 30), curve: Curves.linear);
   }
 
-  void initState() async {
+  void loadSectionText() async {
     await loadSectionTextAndHighlights();
     emit(ReaderReady());
     Future.delayed(Duration(milliseconds: 50), () {
