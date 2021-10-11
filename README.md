@@ -9,6 +9,9 @@ Mina Reader is a flutter package for Text Reading and Highlighting.
 - Make Bold, Italic, Underline of selected text
 - Last Read Location saves automatically
 
+## Web Support
+- Highlight menu not supported on web yet.
+
 ### Screens
 - Book List
 - Sections
