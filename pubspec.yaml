@@ -1,8 +1,7 @@
 name: mina_reader
-description: Text Reading and Highlighting flutter package.
+description: Read Plain Text books. Make highlight, bold, italic selected text. Read with auto scroll.
 version: 0.0.1
 homepage: https://github.com/demirdev/mina_reader
-repository: https://github.com/demirdev/mina_reader
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
@@ -14,7 +13,7 @@ dependencies:
   equatable: ^2.0.2
   flutter_bloc: ^7.0.0
   flutter_screenutil: ^5.0.0+2
-  get: ^4.1.4
+  get:
   hive: ^2.0.4
   hive_flutter: ^1.0.0
 
