@@ -14,7 +14,7 @@ import 'package:mina_reader/book_library/model/menu_button.dart';
 import 'package:mina_reader/book_library/screens/reader/bloc/reader_bloc.dart';
 import 'package:mina_reader/book_library/screens/reader/widgets/next_section_widget.dart';
 import 'package:mina_reader/book_library/screens/sections/helper/name_parsing_helper.dart';
-import 'package:mina_reader/book_library/text_selection_controls.txt.dart';
+import 'package:mina_reader/book_library/text_selection_controls.dart';
 import 'package:mina_reader/book_library/theme/text_theme.dart';
 
 import '../../../mina_reader.dart';
@@ -45,7 +45,7 @@ class BookReaderScreen extends StatefulWidget {
 
 class _BookReaderScreenState extends State<BookReaderScreen>
     with WidgetsBindingObserver {
-  late final ReaderBloc _readerBloc;
+  late ReaderBloc _readerBloc;
   final Book book;
   final int index;
 
@@ -66,11 +66,13 @@ class _BookReaderScreenState extends State<BookReaderScreen>
 
   @override
   void initState() {
-    _readerBloc = Get.put(ReaderBloc(
-        sectionFileName: book.sections[index].fileName,
-        highlightFileName: book.getHighlightFileName(index),
-        scrollController: _scrollController,
-        bookFolder: book.assetFolder));
+    _readerBloc = Get.put(
+        ReaderBloc(
+            sectionFileName: book.sections[index].fileName,
+            highlightFileName: book.getHighlightFileName(index),
+            scrollController: _scrollController,
+            bookFolder: book.assetFolder),
+        tag: book.sections[index].fileName);
 
     if (WidgetsBinding.instance != null) {
       WidgetsBinding.instance!.addObserver(this);
