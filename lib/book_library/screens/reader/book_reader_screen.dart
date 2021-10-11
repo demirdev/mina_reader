@@ -317,7 +317,10 @@ class _BookReaderScreenState extends State<BookReaderScreen>
 
     if (!allowInsert(currentTextSelection)) return;
 
-    addHighlight(currentTextSelection, color: value.value, type: button.type);
+    addHighlight(currentTextSelection,
+        color: value.value,
+        type: button.type,
+        sectionFileName: book.sections[index].fileName);
 
     currentTextSelection = TextSelection(baseOffset: -1, extentOffset: -1);
     setState(() {});

@@ -7,7 +7,9 @@ import '../../../../mina_reader.dart';
 import '../../../model/highlight_type.dart';
 
 void addHighlight(TextSelection selection,
-    {int color = 0xFFFFCC00, required highlight_type type}) {
+    {int color = 0xFFFFCC00,
+    required highlight_type type,
+    required String sectionFileName}) {
   if (selection.baseOffset == -1) return;
   final newHighlight = Highlight(
       color: color,
@@ -15,7 +17,7 @@ void addHighlight(TextSelection selection,
       extendOffset: selection.extentOffset,
       type: type);
 
-  final _readerBloc = Get.find<ReaderBloc>();
+  final _readerBloc = Get.find<ReaderBloc>(tag: sectionFileName);
 
   _readerBloc.highlights.add(
     newHighlight,
