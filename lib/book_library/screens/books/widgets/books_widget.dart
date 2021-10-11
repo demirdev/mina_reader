@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mina_reader/book_library/model/book.dart';
-import 'package:mina_reader/book_library/model/book_list.dart';
 import 'package:mina_reader/book_library/screens/books/bloc/book_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mina_reader/book_library/theme/text_theme.dart';
 
 import 'book_list_tile_widget.dart';
 
