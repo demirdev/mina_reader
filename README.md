@@ -16,7 +16,7 @@ Mina Reader is a flutter package for Text Reading and Highlighting.
 
 [Get on pub.dev](https://pub.dev/packages/mina_reader)
 
-<img src="https://raw.githubusercontent.com/demirdev/mina_reader/main/docs/assets/demo.gif" alt="Example Project" />
+<img src="https://raw.githubusercontent.com/demirdev/mina_reader/main/doc/assets/demo.gif" alt="Example Project" />
 
 
 ## How to use
