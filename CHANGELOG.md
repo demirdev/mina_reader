@@ -1,3 +1,7 @@
+## [0.0.5] - October 12 2021
+
+- GetMaterialApp changed to MaterialApp in example code at README.md. 
+
 ## [0.0.4] - October 12 2021
 
 - Removed GetMaterialApp dependency. 
