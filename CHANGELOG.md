@@ -1,3 +1,7 @@
+## [0.0.4] - October 12 2021
+
+- Removed GetMaterialApp dependency. 
+
 ## [0.0.3] - October 11 2021
 
 - Developer Challenge badge added
