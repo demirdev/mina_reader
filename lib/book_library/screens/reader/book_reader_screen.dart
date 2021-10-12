@@ -51,7 +51,7 @@ class _BookReaderScreenState extends State<BookReaderScreen>
 
   TextSelection currentTextSelection =
       TextSelection(baseOffset: -1, extentOffset: -1);
-  ScrollController _scrollController = ScrollController();
+  // ScrollController _scrollController = ScrollController();
 
   final transparentHighlight = Highlight(
       color: Colors.transparent.value, baseOffset: 0, extendOffset: 0);
@@ -70,7 +70,6 @@ class _BookReaderScreenState extends State<BookReaderScreen>
         ReaderBloc(
             sectionFileName: book.sections[index].fileName,
             highlightFileName: book.getHighlightFileName(index),
-            scrollController: _scrollController,
             bookFolder: book.assetFolder),
         tag: book.sections[index].fileName);
 
@@ -89,7 +88,8 @@ class _BookReaderScreenState extends State<BookReaderScreen>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    _readerBloc.add(ReaderLastLocationChanged(_scrollController.offset));
+    _readerBloc
+        .add(ReaderLastLocationChanged(_readerBloc.scrollController.offset));
     super.didChangeAppLifecycleState(state);
   }
 
@@ -99,7 +99,8 @@ class _BookReaderScreenState extends State<BookReaderScreen>
       value: _readerBloc,
       child: WillPopScope(
         onWillPop: () async {
-          _readerBloc.add(ReaderLastLocationChanged(_scrollController.offset));
+          _readerBloc.add(
+              ReaderLastLocationChanged(_readerBloc.scrollController.offset));
           return true;
         },
         child: Scaffold(
@@ -158,7 +159,11 @@ class _BookReaderScreenState extends State<BookReaderScreen>
                 ),
               IconButton(
                 onPressed: () {
-                  Get.to(() => ReaderScreenSettings());
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ReaderScreenSettings()),
+                  );
                 },
                 icon: Icon(
                   Icons.settings,
@@ -177,8 +182,8 @@ class _BookReaderScreenState extends State<BookReaderScreen>
                     _readerBloc.isScrolling = false;
                     _isAllReaded = true;
                   });
-                  _readerBloc
-                      .add(ReaderLastLocationChanged(_scrollController.offset));
+                  _readerBloc.add(ReaderLastLocationChanged(
+                      _readerBloc.scrollController.offset));
 
                   // Future.delayed(Duration(seconds: 1), () {
                   //   toggleAutoScroll(forceScroll: true);
@@ -224,8 +229,9 @@ class _BookReaderScreenState extends State<BookReaderScreen>
                       if (state is ReaderReady) {
                         return Expanded(
                           child: Scrollbar(
+                            controller: _readerBloc.scrollController,
                             child: SingleChildScrollView(
-                              controller: _scrollController,
+                              controller: _readerBloc.scrollController,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
