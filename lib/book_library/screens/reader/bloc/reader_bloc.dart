@@ -16,7 +16,7 @@ part 'reader_state.dart';
 class ReaderBloc extends Bloc<ReaderEvent, ReaderState> {
   final String sectionFileName;
   final String highlightFileName;
-  final ScrollController scrollController;
+  final ScrollController scrollController = ScrollController();
   final String bookFolder;
 
   // zoom variables
@@ -35,7 +35,6 @@ class ReaderBloc extends Bloc<ReaderEvent, ReaderState> {
   ReaderBloc(
       {required this.sectionFileName,
       required this.highlightFileName,
-      required this.scrollController,
       required this.bookFolder})
       : super(ReaderInitial()) {
     loadSectionText();
