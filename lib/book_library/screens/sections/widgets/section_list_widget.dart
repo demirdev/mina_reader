@@ -10,20 +10,23 @@ class SectionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        final title = getSectionTitle(index, book);
-        final fileName = book.sections[index].fileName;
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          final title = getSectionTitle(index, book);
+          final fileName = book.sections[index].fileName;
 
-        return ListTile(
-          title: Text(title ?? ''),
-          onTap: () {
-            BlocProvider.of<SectionBloc>(context).add(SectionTapped(
-                book: book, sectionIndex: index, title: title ?? ''));
-          },
-        );
-      },
-      itemCount: book.sections.length,
+          return ListTile(
+            title: Text(title ?? ''),
+            onTap: () {
+              BlocProvider.of<SectionBloc>(context).add(SectionTapped(
+                  book: book, sectionIndex: index, title: title ?? ''));
+            },
+          );
+        },
+        itemCount: book.sections.length,
+      ),
     );
   }
 }
