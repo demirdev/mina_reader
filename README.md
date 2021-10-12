@@ -2,7 +2,7 @@
 
 # mina_reader
 
-Mina Reader is a flutter package for Text Reading and Highlighting.
+Read Plain Text books. Make highlight, bold, italic selected text. Read with auto scroll.
 
 ### Features:
 - Auto Scroll Text
