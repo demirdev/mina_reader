@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:mina_reader/book_library/components/loading.dart';
 import 'package:mina_reader/book_library/model/book.dart';
+import 'package:mina_reader/book_library/screens/reader/book_reader_screen.dart';
 import 'package:mina_reader/book_library/screens/sections/bloc/section_bloc.dart';
 import 'package:mina_reader/book_library/theme/text_theme.dart';
 
+import 'helper/name_parsing_helper.dart';
 import 'widgets/section_list_widget.dart';
 
 class SectionScreen extends StatefulWidget {
@@ -18,12 +19,8 @@ class SectionScreen extends StatefulWidget {
 }
 
 class _SectionScreenState extends State<SectionScreen> {
-  late final SectionBloc sectionBloc;
-
   @override
   void initState() {
-    sectionBloc = Get.put(SectionBloc(widget.book));
-    sectionBloc.add(SectionGoToLastReadingRequired());
     super.initState();
   }
 
@@ -40,10 +37,18 @@ class _SectionScreenState extends State<SectionScreen> {
           ),
         ),
       ),
-      body: BlocProvider<SectionBloc>.value(
-        value: sectionBloc,
-        child: BlocBuilder<SectionBloc, SectionState>(
+      body: BlocProvider(
+        create: (context) => SectionBloc(widget.book),
+        child: BlocConsumer<SectionBloc, SectionState>(
+          listener: (BuildContext context, SectionState state) {
+            if (state is SectionGoToReader) {
+              gotoReaderScreen(context, state);
+            }
+          },
+          buildWhen: (context, state) =>
+              !(state is SectionGoToReader || state is SectionLoading),
           builder: (context, state) {
+            print('state is :: ' + state.toString());
             if (state is SectionInitial) {
               return SectionList(widget.book);
             } else {
@@ -52,6 +57,29 @@ class _SectionScreenState extends State<SectionScreen> {
           },
         ),
       ),
+    );
+  }
+
+  void gotoReaderScreen(BuildContext context, SectionGoToReader state) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => BookReaderScreen(
+                book: state.book,
+                sectionIndex: state.sectionIndex,
+                onTapNextSection: () {
+                  BlocProvider.of<SectionBloc>(context).add(SectionTapped(
+                      book: state.book,
+                      sectionIndex: state.sectionIndex + 1,
+                      title:
+                          getSectionTitle(state.sectionIndex + 1, state.book) ??
+                              ''));
+                },
+                nextSectionTitle:
+                    (state.sectionIndex + 1) >= state.book.sections.length
+                        ? null
+                        : getSectionTitle(state.sectionIndex + 1, state.book),
+              )),
     );
   }
 }
