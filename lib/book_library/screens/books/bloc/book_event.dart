@@ -9,5 +9,5 @@ class BookTapped extends BookEvent {
 
   BookTapped(this.book);
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [book];
 }
