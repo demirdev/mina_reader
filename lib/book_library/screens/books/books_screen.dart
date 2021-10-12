@@ -12,7 +12,6 @@ import 'package:mina_reader/book_library/theme/text_theme.dart';
 import 'widgets/books_widget.dart';
 
 class BooksScreen extends StatelessWidget {
-  late final bookBloc = Get.put(BookBloc());
   final List<Book> books;
   final String title;
   final List<HighlightMenuButton>? highlightMenuColorButtons;
@@ -44,9 +43,11 @@ class BooksScreen extends StatelessWidget {
           ),
         ),
         body: SafeArea(
-          child: BlocProvider<BookBloc>.value(
-            value: bookBloc,
+          child: BlocProvider<BookBloc>(
+            create: (context) => BookBloc(),
             child: BlocBuilder<BookBloc, BookState>(
+              buildWhen: (context, state) =>
+                  !(state is BookGoToSection || state is BookLoading),
               builder: (context, state) {
                 if (state is BookInitial) {
                   return BooksWidget(books: books);
