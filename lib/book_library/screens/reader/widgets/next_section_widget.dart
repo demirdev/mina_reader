@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mina_reader/book_library/theme/text_theme.dart';
 
@@ -23,7 +22,7 @@ class NextSectionWidget extends StatelessWidget {
         ),
         child: TextButton(
             onPressed: () async {
-              Get.back();
+              Navigator.pop(context);
               onTapNextSection();
             },
             child: Text(

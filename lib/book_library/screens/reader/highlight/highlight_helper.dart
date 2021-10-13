@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mina_reader/book_library/model/highlight.dart';
 import 'package:mina_reader/book_library/screens/reader/bloc/reader_bloc.dart';
 import 'package:mina_reader/book_library/theme/text_theme.dart';
@@ -9,7 +8,8 @@ import '../../../model/highlight_type.dart';
 void addHighlight(TextSelection selection,
     {int color = 0xFFFFCC00,
     required highlight_type type,
-    required String sectionFileName}) {
+    required String sectionFileName,
+    required ReaderBloc readerBloc}) {
   if (selection.baseOffset == -1) return;
   final newHighlight = Highlight(
       color: color,
@@ -17,22 +17,19 @@ void addHighlight(TextSelection selection,
       extendOffset: selection.extentOffset,
       type: type);
 
-  final _readerBloc = Get.find<ReaderBloc>(tag: sectionFileName);
-
-  _readerBloc.highlights.add(
+  readerBloc.highlights.add(
     newHighlight,
   );
 
-  _readerBloc.highlights.sort((a, b) => a.compareTo(b));
+  readerBloc.highlights.sort((a, b) => a.compareTo(b));
 
-  print(_readerBloc.highlights.last);
-  _readerBloc.saveHighlights();
+  print(readerBloc.highlights.last);
+  readerBloc.saveHighlights();
 }
 
-void clearHighlights(int sectionIndex, Book book) {
+void clearHighlights(int sectionIndex, Book book, ReaderBloc readerBloc) {
   box.put(book.getHighlightFileName(sectionIndex), null);
-  final _readerBloc = Get.find<ReaderBloc>();
-  _readerBloc.highlights = [];
+  readerBloc.highlights = [];
   // setState(() {});
 }
 

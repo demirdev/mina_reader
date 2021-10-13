@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:mina_reader/book_library/components/loading.dart';
 import 'package:mina_reader/book_library/components/scroll_speed_widget.dart';
 import 'package:mina_reader/book_library/model/book.dart';
@@ -66,13 +63,10 @@ class _BookReaderScreenState extends State<BookReaderScreen>
 
   @override
   void initState() {
-    _readerBloc = Get.put(
-        ReaderBloc(
-            sectionFileName: book.sections[index].fileName,
-            highlightFileName: book.getHighlightFileName(index),
-            bookFolder: book.assetFolder),
-        tag: book.sections[index].fileName);
-
+    _readerBloc = ReaderBloc(
+        sectionFileName: book.sections[index].fileName,
+        highlightFileName: book.getHighlightFileName(index),
+        bookFolder: book.assetFolder);
     if (WidgetsBinding.instance != null) {
       WidgetsBinding.instance!.addObserver(this);
     }
@@ -326,7 +320,8 @@ class _BookReaderScreenState extends State<BookReaderScreen>
     addHighlight(currentTextSelection,
         color: value.value,
         type: button.type,
-        sectionFileName: book.sections[index].fileName);
+        sectionFileName: book.sections[index].fileName,
+        readerBloc: _readerBloc);
 
     currentTextSelection = TextSelection(baseOffset: -1, extentOffset: -1);
     setState(() {});
@@ -428,32 +423,33 @@ class _BookReaderScreenState extends State<BookReaderScreen>
         return element['s'] <= startIndex && element['e'] >= endIndex;
       });
 
-      Get.defaultDialog(
-          title: meaning['o'],
-          content: Container(
-            width: 0.8.sw,
-            height: 0.5.sh,
-            child: Column(
-              children: [
-                Expanded(
-                  child: Scrollbar(
-                    child: ListView(shrinkWrap: true, children: [
-                      Text(
-                        meaning['m'],
-                        style: getTextStyle(transparentHighlight),
-                      ),
-                    ]),
-                  ),
-                ),
-                // Row(
-                //   children: [
-                //     IconButton(
-                //         icon: Icon(Icons.favorite_border), onPressed: () {}),
-                //   ],
-                // ),
-              ],
-            ),
-          ));
+      // TODO: convert this dialog to AlertDialog
+      // Get.defaultDialog(
+      //     title: meaning['o'],
+      //     content: Container(
+      //       width: 0.8.sw,
+      //       height: 0.5.sh,
+      //       child: Column(
+      //         children: [
+      //           Expanded(
+      //             child: Scrollbar(
+      //               child: ListView(shrinkWrap: true, children: [
+      //                 Text(
+      //                   meaning['m'],
+      //                   style: getTextStyle(transparentHighlight),
+      //                 ),
+      //               ]),
+      //             ),
+      //           ),
+      //           // Row(
+      //           //   children: [
+      //           //     IconButton(
+      //           //         icon: Icon(Icons.favorite_border), onPressed: () {}),
+      //           //   ],
+      //           // ),
+      //         ],
+      //       ),
+      //     ));
       return;
     }
 

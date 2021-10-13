@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:mina_reader/book_library/components/scroll_speed_widget.dart';
 import 'package:mina_reader/book_library/model/menu_button.dart';
 import 'package:mina_reader/book_library/screens/reader/reading_settings_texts.dart';
@@ -109,27 +108,46 @@ class _ReaderScreenSettingsState extends State<ReaderScreenSettings> {
           onTap: () async {
             final TextEditingController _controller = TextEditingController();
             _controller.text = button.label;
-            Get.defaultDialog(
-                title: ReaderScreenSettings.texts.changeColorLabel,
-                content: Column(
-                  children: [
-                    TextFormField(
-                      controller: _controller,
-                      autofocus: true,
-                    ),
-                  ],
-                ),
-                onConfirm: () {
-                  button.label = _controller.text;
-                  MyMaterialTextSelectionControls.saveHighlightColorButtons(
-                      buttons);
-                  Get.back();
 
-                  setState(() {});
-                },
-                textConfirm: ReaderScreenSettings.texts.ok,
-                confirmTextColor: Colors.white,
-                textCancel: ReaderScreenSettings.texts.cancel);
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text(ReaderScreenSettings.texts.changeColorLabel),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextFormField(
+                          controller: _controller,
+                          autofocus: true,
+                        ),
+                      ],
+                    ),
+                    actions: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text(ReaderScreenSettings.texts.cancel),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              button.label = _controller.text;
+                              MyMaterialTextSelectionControls
+                                  .saveHighlightColorButtons(buttons);
+                              Navigator.pop(context);
+                              setState(() {});
+                            },
+                            child: Text(ReaderScreenSettings.texts.ok),
+                          )
+                        ],
+                      ),
+                    ],
+                  );
+                });
           },
           trailing: Icon(Icons.edit),
         ),
